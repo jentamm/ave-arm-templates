@@ -1,0 +1,52 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "communityName": {
+            "type": "string"
+        },
+        "apiVersion": {
+            "defaultValue": "2024-06-01-preview",
+            "type": "string"
+        },
+        "addressSpace": {
+            "defaultValue": "10.0.0.0/16",
+            "type": "string"
+        },
+        "dnsServers": {
+            "defaultValue": [],
+            "type": "array"
+        },
+        "location": {
+            "defaultValue": "[resourceGroup().location]",
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Mission/communities",
+            "apiVersion": "[parameters('apiVersion')]",
+            "name": "[parameters('communityName')]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "department": "MyDepartment",
+                "company": "MyCompany"
+            },
+            "properties": {
+                "addressSpace": "[parameters('addressSpace')]",
+                "dnsServers": "[parameters('dnsServers')]"
+            }
+        }
+    ],
+    "outputs": {
+        "communityResourceId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Mission/communities', parameters('communityName'))]"
+        },
+        "communityAddressSpace": {
+            "type": "string",
+            "value": "[parameters('addressSpace')]"
+        }
+    }
+}
