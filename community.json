@@ -30,8 +30,7 @@
             "name": "[parameters('communityName')]",
             "location": "[parameters('location')]",
             "tags": {
-                "department": "MyDepartment",
-                "company": "MyCompany"
+                "do_not_delete" : "do_not_delete",
             },
             "properties": {
                 "addressSpace": "[parameters('addressSpace')]",
