@@ -1,137 +1,137 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "name": {
-            "type": "String"
-        },
-        "location": {
-            "type": "String"
-        },
-        "addressSpace": {
-            "type": "String"
-        },
-        "dnsServers": {
-            "defaultValue": [],
-            "type": "Array"
-        },
-        "governedServiceList": {
-            "defaultValue": [
-                {
-                    "id": "AKS",
-                    "option": "Allow",
-                    "enforcement": "Enabled",
-                    "auditOnly": false
-                },
-                {
-                    "id": "AppService",
-                    "option": "Allow",
-                    "enforcement": "Enabled",
-                    "auditOnly": false
-                },
-                {
-                    "id": "ContainerRegistry",
-                    "option": "Allow",
-                    "enforcement": "Enabled",
-                    "auditOnly": false
-                },
-                {
-                    "id": "CosmosDB",
-                    "option": "Allow",
-                    "enforcement": "Enabled",
-                    "auditOnly": false
-                },
-                {
-                    "id": "KeyVault",
-                    "option": "Allow",
-                    "enforcement": "Enabled",
-                    "auditOnly": false
-                },
-                {
-                    "id": "MicrosoftSQL",
-                    "option": "Allow",
-                    "enforcement": "Enabled",
-                    "auditOnly": false
-                },
-                {
-                    "id": "Monitoring",
-                    "option": "Not Applicable",
-                    "enforcement": "Enabled",
-                    "auditOnly": false
-                },
-                {
-                    "id": "PostgreSQL",
-                    "option": "Allow",
-                    "enforcement": "Enabled",
-                    "auditOnly": false
-                },
-                {
-                    "id": "ServiceBus",
-                    "option": "Allow",
-                    "enforcement": "Enabled",
-                    "auditOnly": false
-                },
-                {
-                    "id": "Storage",
-                    "option": "Allow",
-                    "enforcement": "Enabled",
-                    "auditOnly": false
-                },
-                {
-                    "id": "AzureFirewalls",
-                    "option": "Allow",
-                    "enforcement": "Enabled",
-                    "auditOnly": false
-                },
-                {
-                    "id": "Insights",
-                    "option": "Allow",
-                    "enforcement": "Enabled",
-                    "auditOnly": false
-                },
-                {
-                    "id": "Logic",
-                    "option": "Allow",
-                    "enforcement": "Enabled",
-                    "auditOnly": false
-                },
-                {
-                    "id": "PrivateDNSZones",
-                    "option": "Allow",
-                    "enforcement": "Enabled",
-                    "auditOnly": false
-                },
-                {
-                    "id": "DataConnectors",
-                    "option": "Allow",
-                    "enforcement": "Enabled",
-                    "auditOnly": false
-                }
-            ],
-            "type": "Array"
-        },
-        "tags": {
-            "type": "Object"
-        },
-        "resourceType": {
-            "type": "String",
-        },
-        "apiVersion": {
-            "type": "String",
-        }
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "type": "String"
     },
-    "resources": [
+    "location": {
+      "type": "String"
+    },
+    "addressSpace": {
+      "type": "String"
+    },
+    "dnsServers": {
+      "defaultValue": [],
+      "type": "Array"
+    },
+    "governedServiceList": {
+      "defaultValue": [
         {
-            "type": "[parameters('resourceType')]",
-            "apiVersion": "[parameters('apiVersion')]",
-            "name": "[parameters('name')]",
-            "location": "[parameters('location')]",
-            "tags": "[if(contains(parameters('tags'),'[parameters('resourceType')]'),parameters('tags')['[parameters('resourceType')]'],json('{}'))]",
-            "properties": {
-                "addressSpace": "[parameters('addressSpace')]",
-                "governedServiceList": "[parameters('governedServiceList')]",
-                "dnsServers": "[parameters('dnsServers')]"
-            }
+          "id": "AKS",
+          "option": "Allow",
+          "enforcement": "Enabled",
+          "auditOnly": false
+        },
+        {
+          "id": "AppService",
+          "option": "Allow",
+          "enforcement": "Enabled",
+          "auditOnly": false
+        },
+        {
+          "id": "ContainerRegistry",
+          "option": "Allow",
+          "enforcement": "Enabled",
+          "auditOnly": false
+        },
+        {
+          "id": "CosmosDB",
+          "option": "Allow",
+          "enforcement": "Enabled",
+          "auditOnly": false
+        },
+        {
+          "id": "KeyVault",
+          "option": "Allow",
+          "enforcement": "Enabled",
+          "auditOnly": false
+        },
+        {
+          "id": "MicrosoftSQL",
+          "option": "Allow",
+          "enforcement": "Enabled",
+          "auditOnly": false
+        },
+        {
+          "id": "Monitoring",
+          "option": "Not Applicable",
+          "enforcement": "Enabled",
+          "auditOnly": false
+        },
+        {
+          "id": "PostgreSQL",
+          "option": "Allow",
+          "enforcement": "Enabled",
+          "auditOnly": false
+        },
+        {
+          "id": "ServiceBus",
+          "option": "Allow",
+          "enforcement": "Enabled",
+          "auditOnly": false
+        },
+        {
+          "id": "Storage",
+          "option": "Allow",
+          "enforcement": "Enabled",
+          "auditOnly": false
+        },
+        {
+          "id": "AzureFirewalls",
+          "option": "Allow",
+          "enforcement": "Enabled",
+          "auditOnly": false
+        },
+        {
+          "id": "Insights",
+          "option": "Allow",
+          "enforcement": "Enabled",
+          "auditOnly": false
+        },
+        {
+          "id": "Logic",
+          "option": "Allow",
+          "enforcement": "Enabled",
+          "auditOnly": false
+        },
+        {
+          "id": "PrivateDNSZones",
+          "option": "Allow",
+          "enforcement": "Enabled",
+          "auditOnly": false
+        },
+        {
+          "id": "DataConnectors",
+          "option": "Allow",
+          "enforcement": "Enabled",
+          "auditOnly": false
         }
-    ]
+      ],
+      "type": "Array"
+    },
+    "tags": {
+      "type": "Object"
+    },
+    "resourceType": {
+      "type": "String"
+    },
+    "apiVersion": {
+      "type": "String"
+    }
+  },
+  "resources": [
+    {
+      "type": "[parameters('resourceType')]",
+      "apiVersion": "[parameters('apiVersion')]",
+      "name": "[parameters('name')]",
+      "location": "[parameters('location')]",
+      "tags": "[if(contains(parameters('tags'),'[parameters('resourceType')]'),parameters('tags')['[parameters('resourceType')]'],json('{}'))]",
+      "properties": {
+        "addressSpace": "[parameters('addressSpace')]",
+        "governedServiceList": "[parameters('governedServiceList')]",
+        "dnsServers": "[parameters('dnsServers')]"
+      }
+    }
+  ]
 }
