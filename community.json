@@ -2,50 +2,136 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "communityName": {
-            "type": "string"
+        "name": {
+            "type": "String"
         },
-        "apiVersion": {
-            "defaultValue": "2024-06-01-preview",
-            "type": "string"
+        "location": {
+            "type": "String"
         },
         "addressSpace": {
-            "defaultValue": "10.0.0.0/16",
-            "type": "string"
+            "type": "String"
         },
         "dnsServers": {
             "defaultValue": [],
-            "type": "array"
+            "type": "Array"
         },
-        "location": {
-            "defaultValue": "[resourceGroup().location]",
-            "type": "string"
+        "governedServiceList": {
+            "defaultValue": [
+                {
+                    "id": "AKS",
+                    "option": "Allow",
+                    "enforcement": "Enabled",
+                    "auditOnly": false
+                },
+                {
+                    "id": "AppService",
+                    "option": "Allow",
+                    "enforcement": "Enabled",
+                    "auditOnly": false
+                },
+                {
+                    "id": "ContainerRegistry",
+                    "option": "Allow",
+                    "enforcement": "Enabled",
+                    "auditOnly": false
+                },
+                {
+                    "id": "CosmosDB",
+                    "option": "Allow",
+                    "enforcement": "Enabled",
+                    "auditOnly": false
+                },
+                {
+                    "id": "KeyVault",
+                    "option": "Allow",
+                    "enforcement": "Enabled",
+                    "auditOnly": false
+                },
+                {
+                    "id": "MicrosoftSQL",
+                    "option": "Allow",
+                    "enforcement": "Enabled",
+                    "auditOnly": false
+                },
+                {
+                    "id": "Monitoring",
+                    "option": "Not Applicable",
+                    "enforcement": "Enabled",
+                    "auditOnly": false
+                },
+                {
+                    "id": "PostgreSQL",
+                    "option": "Allow",
+                    "enforcement": "Enabled",
+                    "auditOnly": false
+                },
+                {
+                    "id": "ServiceBus",
+                    "option": "Allow",
+                    "enforcement": "Enabled",
+                    "auditOnly": false
+                },
+                {
+                    "id": "Storage",
+                    "option": "Allow",
+                    "enforcement": "Enabled",
+                    "auditOnly": false
+                },
+                {
+                    "id": "AzureFirewalls",
+                    "option": "Allow",
+                    "enforcement": "Enabled",
+                    "auditOnly": false
+                },
+                {
+                    "id": "Insights",
+                    "option": "Allow",
+                    "enforcement": "Enabled",
+                    "auditOnly": false
+                },
+                {
+                    "id": "Logic",
+                    "option": "Allow",
+                    "enforcement": "Enabled",
+                    "auditOnly": false
+                },
+                {
+                    "id": "PrivateDNSZones",
+                    "option": "Allow",
+                    "enforcement": "Enabled",
+                    "auditOnly": false
+                },
+                {
+                    "id": "DataConnectors",
+                    "option": "Allow",
+                    "enforcement": "Enabled",
+                    "auditOnly": false
+                }
+            ],
+            "type": "Array"
+        },
+        "tags": {
+            "type": "Object"
+        },
+        "resourceType": {
+            "type": "String",
+        },
+        "apiVersion": {
+            "type": "String",
         }
     },
-    "variables": {},
     "resources": [
         {
-            "type": "Microsoft.Mission/communities",
+            "type": "[parameters('resourceType')]",
             "apiVersion": "[parameters('apiVersion')]",
-            "name": "[parameters('communityName')]",
+            "name": "[parameters('name')]",
             "location": "[parameters('location')]",
-            "tags": {
-                "do_not_delete" : "do_not_delete",
-            },
+            "tags": "[if(contains(parameters('tags'),'[parameters('resourceType')]'),parameters('tags')['[parameters('resourceType')]'],json('{}'))]",
             "properties": {
                 "addressSpace": "[parameters('addressSpace')]",
+                "governedServiceList": "[parameters('governedServiceList')]",
                 "dnsServers": "[parameters('dnsServers')]"
             }
         }
-    ],
-    "outputs": {
-        "communityResourceId": {
-            "type": "string",
-            "value": "[resourceId('Microsoft.Mission/communities', parameters('communityName'))]"
-        },
-        "communityAddressSpace": {
-            "type": "string",
-            "value": "[parameters('addressSpace')]"
-        }
-    }
+    ]
 }
