@@ -113,20 +113,17 @@
     "tags": {
       "type": "Object"
     },
-    "resourceType": {
-      "type": "String"
-    },
     "apiVersion": {
       "type": "String"
     }
   },
   "resources": [
     {
-      "type": "[parameters('resourceType')]",
+      "type": "Microsoft.Mission/communities",
       "apiVersion": "[parameters('apiVersion')]",
       "name": "[parameters('name')]",
       "location": "[parameters('location')]",
-      "tags": "[if(contains(parameters('tags'),'[parameters('resourceType')]'),parameters('tags')['[parameters('resourceType')]'],json('{}'))]",
+      "tags": "[if(contains(parameters('tags'),'Microsoft.Mission/communities'),parameters('tags')['Microsoft.Mission/communities'],json('{}'))]",
       "properties": {
         "addressSpace": "[parameters('addressSpace')]",
         "governedServiceList": "[parameters('governedServiceList')]",
