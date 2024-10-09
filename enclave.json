@@ -1,0 +1,112 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "communityId": {
+      "type": "string"
+    },
+    "networkSize": {
+      "type": "string"
+    },
+    "customCidrRange": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "diagnosticDestination": {
+      "type": "string"
+    },
+    "maintenanceMode": {
+      "type": "object",
+      "defaultValue": {}
+    },
+    "tags": {
+      "type": "object"
+    },
+    "connectToAzureServices": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "subnetConfigurations": {
+      "type": "array",
+      "defaultValue": []
+    },
+    "allowSubnetCommunication": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "bastionEnabled": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "security": {
+      "type": "object",
+      "defaultValue": { "type": "none" }
+    },
+    "msiEnabled": {
+      "type": "string",
+      "allowedValues": [
+        "true",
+        "false"
+      ],
+      "defaultValue": "false"
+    }
+  },
+  "variables": {
+    "apiVersion": "${enclaveApiVersion}"
+  },
+  "resources": [
+    {
+      "condition": "[equals(parameters('msiEnabled'), 'true')]",
+       "type": "${resourceProvider}/virtualenclaves",
+      "apiVersion": "[variables('apiVersion')]",
+      "name": "[parameters('name')]",
+      "identity": "[parameters('security')]",
+      "properties": {
+        "communityResourceId": "[parameters('communityId')]",
+        "enclaveVirtualNetwork": {
+          "networkSize": "[parameters('networkSize')]",
+          "customCidrRange": "[parameters('customCidrRange')]",
+          "connectToAzureServices": "[parameters('connectToAzureServices')]",
+          "subnetConfigurations": "[parameters('subnetConfigurations')]",
+          "allowSubnetCommunication": "[parameters('allowSubnetCommunication')]"
+        },
+        "enclaveDefaultSettings": {
+          "diagnosticDestination": "[parameters('diagnosticDestination')]"
+        },
+        "maintenanceModeConfiguration": "[parameters('maintenanceMode')]",
+        "bastionEnabled": "[parameters('bastionEnabled')]"
+      },
+      "location": "[parameters('location')]",
+      "tags": "[if(contains(parameters('tags'),'${resourceProvider}/virtualenclaves'),parameters('tags')['${resourceProvider}/virtualenclaves'],json('{}'))]"
+    },
+    {
+      "condition": "[equals(parameters('msiEnabled'), 'false')]",
+      "type": "${resourceProvider}/virtualenclaves",
+     "apiVersion": "[variables('apiVersion')]",
+     "name": "[parameters('name')]",
+     "properties": {
+       "communityResourceId": "[parameters('communityId')]",
+       "enclaveVirtualNetwork": {
+         "networkSize": "[parameters('networkSize')]",
+         "customCidrRange": "[parameters('customCidrRange')]",
+         "connectToAzureServices": "[parameters('connectToAzureServices')]",
+         "subnetConfigurations": "[parameters('subnetConfigurations')]",
+         "allowSubnetCommunication": "[parameters('allowSubnetCommunication')]"
+       },
+       "enclaveDefaultSettings": {
+         "diagnosticDestination": "[parameters('diagnosticDestination')]"
+       },
+       "maintenanceModeConfiguration": "[parameters('maintenanceMode')]",
+       "bastionEnabled": "[parameters('bastionEnabled')]"
+     },
+     "location": "[parameters('location')]",
+     "tags": "[if(contains(parameters('tags'),'${resourceProvider}/virtualenclaves'),parameters('tags')['${resourceProvider}/virtualenclaves'],json('{}'))]"
+   }
+  ]
+}
