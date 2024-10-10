@@ -44,66 +44,32 @@
       "type": "bool",
       "defaultValue": false
     },
-    "security": {
-      "type": "object",
-      "defaultValue": { "type": "none" }
-    },
-    "msiEnabled": {
-      "type": "string",
-      "allowedValues": ["true", "false"],
-      "defaultValue": "false"
-    },
     "apiVersion": {
       "type": "string"
     }
   },
-  "resources": [
-    {
-      "condition": "[equals(parameters('msiEnabled'), 'true')]",
-      "type": "Microsoft.Mission/virtualenclaves",
-      "apiVersion": "[parameters('apiVersion')]",
-      "name": "[parameters('name')]",
-      "identity": "[parameters('security')]",
-      "properties": {
-        "communityResourceId": "[parameters('communityId')]",
-        "enclaveVirtualNetwork": {
-          "networkSize": "[parameters('networkSize')]",
-          "customCidrRange": "[parameters('customCidrRange')]",
-          "connectToAzureServices": "[parameters('connectToAzureServices')]",
-          "subnetConfigurations": "[parameters('subnetConfigurations')]",
-          "allowSubnetCommunication": "[parameters('allowSubnetCommunication')]"
-        },
-        "enclaveDefaultSettings": {
-          "diagnosticDestination": "[parameters('diagnosticDestination')]"
-        },
-        "maintenanceModeConfiguration": "[parameters('maintenanceMode')]",
-        "bastionEnabled": "[parameters('bastionEnabled')]"
-      },
-      "location": "[parameters('location')]",
-      "tags": "[if(contains(parameters('tags'),'Microsoft.Mission/virtualenclaves'),parameters('tags')['Microsoft.Mission/virtualenclaves'],json('{}'))]"
-    },
-    {
-      "condition": "[equals(parameters('msiEnabled'), 'false')]",
-      "type": "Microsoft.Mission/virtualenclaves",
-      "apiVersion": "[parameters('apiVersion')]",
-      "name": "[parameters('name')]",
-      "properties": {
-        "communityResourceId": "[parameters('communityId')]",
-        "enclaveVirtualNetwork": {
-          "networkSize": "[parameters('networkSize')]",
-          "customCidrRange": "[parameters('customCidrRange')]",
-          "connectToAzureServices": "[parameters('connectToAzureServices')]",
-          "subnetConfigurations": "[parameters('subnetConfigurations')]",
-          "allowSubnetCommunication": "[parameters('allowSubnetCommunication')]"
-        },
-        "enclaveDefaultSettings": {
-          "diagnosticDestination": "[parameters('diagnosticDestination')]"
-        },
-        "maintenanceModeConfiguration": "[parameters('maintenanceMode')]",
-        "bastionEnabled": "[parameters('bastionEnabled')]"
-      },
-      "location": "[parameters('location')]",
-      "tags": "[if(contains(parameters('tags'),'Microsoft.Mission/virtualenclaves'),parameters('tags')['Microsoft.Mission/virtualenclaves'],json('{}'))]"
-    }
-  ]
+    "resources": [
+        {
+            "type": "Microsoft.Mission/virtualenclaves",
+            "apiVersion": "[variables('apiVersion')]",
+            "name": "[parameters('name')]",
+            "location": "[parameters('location')]",
+            "tags": "[if(contains(parameters('tags'),'Microsoft.Mission/virtualenclaves'),parameters('tags')['Microsoft.Mission/virtualenclaves'],json('{}'))]",
+            "properties": {
+                "communityResourceId": "[parameters('communityId')]",
+                "enclaveVirtualNetwork": {
+                    "networkSize": "[parameters('networkSize')]",
+                    "customCidrRange": "[parameters('customCidrRange')]",
+                    "connectToAzureServices": "[parameters('connectToAzureServices')]",
+                    "subnetConfigurations": "[parameters('subnetConfigurations')]",
+                    "allowSubnetCommunication": "[parameters('allowSubnetCommunication')]"
+                },
+                "enclaveDefaultSettings": {
+                    "diagnosticDestination": "[parameters('diagnosticDestination')]"
+                },
+                "maintenanceModeConfiguration": "[parameters('maintenanceMode')]",
+                "bastionEnabled": "[parameters('bastionEnabled')]"
+            }
+        }
+    ]
 }
