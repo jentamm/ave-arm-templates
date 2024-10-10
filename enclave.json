@@ -51,7 +51,7 @@
     "resources": [
         {
             "type": "Microsoft.Mission/virtualenclaves",
-            "apiVersion": "[variables('apiVersion')]",
+            "apiVersion": "[parameters('apiVersion')]",
             "name": "[parameters('name')]",
             "location": "[parameters('location')]",
             "tags": "[if(contains(parameters('tags'),'Microsoft.Mission/virtualenclaves'),parameters('tags')['Microsoft.Mission/virtualenclaves'],json('{}'))]",
