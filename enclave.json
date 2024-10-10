@@ -60,7 +60,7 @@
   "resources": [
     {
       "condition": "[equals(parameters('msiEnabled'), 'true')]",
-      "type": "${resourceProvider}/virtualenclaves",
+      "type": "Microsoft.Mission/virtualenclaves",
       "apiVersion": "[parameters('apiVersion')]",
       "name": "[parameters('name')]",
       "identity": "[parameters('security')]",
@@ -80,11 +80,11 @@
         "bastionEnabled": "[parameters('bastionEnabled')]"
       },
       "location": "[parameters('location')]",
-      "tags": "[if(contains(parameters('tags'),'${resourceProvider}/virtualenclaves'),parameters('tags')['${resourceProvider}/virtualenclaves'],json('{}'))]"
+      "tags": "[if(contains(parameters('tags'),'Microsoft.Mission/virtualenclaves'),parameters('tags')['Microsoft.Mission/virtualenclaves'],json('{}'))]"
     },
     {
       "condition": "[equals(parameters('msiEnabled'), 'false')]",
-      "type": "${resourceProvider}/virtualenclaves",
+      "type": "Microsoft.Mission/virtualenclaves",
       "apiVersion": "[parameters('apiVersion')]",
       "name": "[parameters('name')]",
       "properties": {
@@ -103,7 +103,7 @@
         "bastionEnabled": "[parameters('bastionEnabled')]"
       },
       "location": "[parameters('location')]",
-      "tags": "[if(contains(parameters('tags'),'${resourceProvider}/virtualenclaves'),parameters('tags')['${resourceProvider}/virtualenclaves'],json('{}'))]"
+      "tags": "[if(contains(parameters('tags'),'Microsoft.Mission/virtualenclaves'),parameters('tags')['Microsoft.Mission/virtualenclaves'],json('{}'))]"
     }
   ]
 }
