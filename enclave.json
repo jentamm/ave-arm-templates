@@ -50,12 +50,9 @@
     },
     "msiEnabled": {
       "type": "string",
-      "allowedValues": [
-        "true",
-        "false"
-      ],
+      "allowedValues": ["true", "false"],
       "defaultValue": "false"
-    }
+    },
     "apiVersion": {
       "type": "String"
     }
@@ -63,7 +60,7 @@
   "resources": [
     {
       "condition": "[equals(parameters('msiEnabled'), 'true')]",
-       "type": "${resourceProvider}/virtualenclaves",
+      "type": "${resourceProvider}/virtualenclaves",
       "apiVersion": "[parameters('apiVersion')]",
       "name": "[parameters('name')]",
       "identity": "[parameters('security')]",
@@ -88,25 +85,25 @@
     {
       "condition": "[equals(parameters('msiEnabled'), 'false')]",
       "type": "${resourceProvider}/virtualenclaves",
-     "apiVersion": "[parameters('apiVersion')]",
-     "name": "[parameters('name')]",
-     "properties": {
-       "communityResourceId": "[parameters('communityId')]",
-       "enclaveVirtualNetwork": {
-         "networkSize": "[parameters('networkSize')]",
-         "customCidrRange": "[parameters('customCidrRange')]",
-         "connectToAzureServices": "[parameters('connectToAzureServices')]",
-         "subnetConfigurations": "[parameters('subnetConfigurations')]",
-         "allowSubnetCommunication": "[parameters('allowSubnetCommunication')]"
-       },
-       "enclaveDefaultSettings": {
-         "diagnosticDestination": "[parameters('diagnosticDestination')]"
-       },
-       "maintenanceModeConfiguration": "[parameters('maintenanceMode')]",
-       "bastionEnabled": "[parameters('bastionEnabled')]"
-     },
-     "location": "[parameters('location')]",
-     "tags": "[if(contains(parameters('tags'),'${resourceProvider}/virtualenclaves'),parameters('tags')['${resourceProvider}/virtualenclaves'],json('{}'))]"
-   }
+      "apiVersion": "[parameters('apiVersion')]",
+      "name": "[parameters('name')]",
+      "properties": {
+        "communityResourceId": "[parameters('communityId')]",
+        "enclaveVirtualNetwork": {
+          "networkSize": "[parameters('networkSize')]",
+          "customCidrRange": "[parameters('customCidrRange')]",
+          "connectToAzureServices": "[parameters('connectToAzureServices')]",
+          "subnetConfigurations": "[parameters('subnetConfigurations')]",
+          "allowSubnetCommunication": "[parameters('allowSubnetCommunication')]"
+        },
+        "enclaveDefaultSettings": {
+          "diagnosticDestination": "[parameters('diagnosticDestination')]"
+        },
+        "maintenanceModeConfiguration": "[parameters('maintenanceMode')]",
+        "bastionEnabled": "[parameters('bastionEnabled')]"
+      },
+      "location": "[parameters('location')]",
+      "tags": "[if(contains(parameters('tags'),'${resourceProvider}/virtualenclaves'),parameters('tags')['${resourceProvider}/virtualenclaves'],json('{}'))]"
+    }
   ]
 }
