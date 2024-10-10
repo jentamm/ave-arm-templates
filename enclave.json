@@ -56,15 +56,15 @@
       ],
       "defaultValue": "false"
     }
-  },
-  "variables": {
-    "apiVersion": "${enclaveApiVersion}"
+    "apiVersion": {
+      "type": "String"
+    }
   },
   "resources": [
     {
       "condition": "[equals(parameters('msiEnabled'), 'true')]",
        "type": "${resourceProvider}/virtualenclaves",
-      "apiVersion": "[variables('apiVersion')]",
+      "apiVersion": "[parameters('apiVersion')]",
       "name": "[parameters('name')]",
       "identity": "[parameters('security')]",
       "properties": {
@@ -88,7 +88,7 @@
     {
       "condition": "[equals(parameters('msiEnabled'), 'false')]",
       "type": "${resourceProvider}/virtualenclaves",
-     "apiVersion": "[variables('apiVersion')]",
+     "apiVersion": "[parameters('apiVersion')]",
      "name": "[parameters('name')]",
      "properties": {
        "communityResourceId": "[parameters('communityId')]",
